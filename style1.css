@@ -1,0 +1,58 @@
+.header{
+background:#9fb9e2;
+border-radius:20px;
+}
+
+h1{
+padding:15px;
+margin-top:0px;
+text-align:center;
+font-weight:bold;
+font-family:Algerian;
+font-size:50px;
+color:black;
+}
+
+.navbar{
+background-color:black;
+border-radius:20px;
+}
+ 
+.navbar ul{
+overflow:auto;
+}
+
+.navbar li{
+float:left;
+list-style:none;
+margin:13px 20px;
+}
+
+.navbar li a{
+font-size:25px;
+padding:3px 3px;
+text-decoration:none;
+color:white;
+min-width:40px;
+
+}
+.navbar li a:hover{
+color:black;
+background:gray;
+
+min-width:40px; 	
+}
+
+.navbar input{
+border:7px solid black;
+border-radius:15px;
+padding:3px 17px;
+width:110px;
+}
+
+.search{
+
+float:right;
+color:white;
+padding:10px 75px;
+}

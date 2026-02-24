@@ -1,0 +1,9 @@
+.footer{
+position:auto;
+margin-top:50px;
+display:block;
+background:black;
+color:white;
+padding:15px 5px;
+border-radius:20px;
+}
