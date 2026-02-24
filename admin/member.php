@@ -551,7 +551,7 @@ yearRange: "1970:<?php echo date('Y');?>"
     <!-- /. WRAPPER  -->
 
     <div id="footer-sec">
-	GYM Management System | Brought To You By : <a href"" target="_blank"></a>
+       Nikam Varuna
     </div>
    
   
@@ -565,4 +565,5 @@ yearRange: "1970:<?php echo date('Y');?>"
     
 </body>
 </html>
+
 

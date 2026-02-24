@@ -321,7 +321,7 @@ display:none;
     <!-- /. WRAPPER  -->
 
     <div id="footer-sec">
-    School Fees Payment System | Brought To You By : <a href="http://code-projects.org/" target="_blank">Code-Projects</a>
+       Nikam Varuna
     </div>
    
   
@@ -335,3 +335,5 @@ display:none;
     
 </body>
 </html>
+
+

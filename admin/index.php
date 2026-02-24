@@ -84,7 +84,7 @@ include("../admin/php/header.php");
     <!-- /. WRAPPER  -->
 
     <div id="footer-sec">
-       GYM Management Systems : <a href="" target="_blank"></a>
+       Nikam Varuna
     </div>
    
    <script src="../admin/js/jquery-1.10.2.js"></script>	
@@ -99,4 +99,5 @@ include("../admin/php/header.php");
 
 </body>
 </html>
+
 

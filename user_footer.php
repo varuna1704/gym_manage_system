@@ -9,11 +9,7 @@
 <link type="text/css" rel="stylesheet" href="style2.css" />
 </head>
 <body>
-<div class="footer">member:&nbsp &nbsp
-
-Pawar Pratiksha &nbsp &nbsp Shete Ruchika &nbsp &nbsp Vadnere Dhanashree &nbsp &nbsp Pawar Mansi
-
-</div>
+<div class="footer">Nikam Varuna</div>
 </body>
 </html>
 </body>

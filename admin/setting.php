@@ -138,7 +138,7 @@ echo $error;
     <!-- /. WRAPPER  -->
 
     <div id="footer-sec">
-       Rainbow English Classes | Developed By : <a href="http://www.codexking.com/" target="_blank">Codexking.com</a>
+       Nikam Varuna
     </div>
    
   
@@ -223,3 +223,5 @@ echo $error;
 
 </body>
 </html>
+
+

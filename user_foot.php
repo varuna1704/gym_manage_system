@@ -6,24 +6,24 @@
 <head>
 <meta charset="utf-8">
 <style>
-    .footer{
-position:auto;
-margin-top:270px;
-display:block;
-background:black;
-color:white;
-padding:15px 5px;
-border-radius:20px;
+.footer{
+  margin-top: 40px;
+  display: block;
+  background: linear-gradient(135deg, #111111, #1f2937);
+  color: #ffffff;
+  padding: 14px 16px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
 }
 </style>
 
 </head>
 <body>
-<div class="footer">member:&nbsp &nbsp
-
-Pawar Pratiksha &nbsp &nbsp Shete Ruchika &nbsp &nbsp Vadnere Dhanashree &nbsp &nbsp Pawar Mansi
-
-</div>
+<div class="footer">Nikam Varuna</div>
 </body>
 </html>
 </body>

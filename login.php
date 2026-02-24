@@ -451,7 +451,8 @@ h1 {
 </main>
 
 <footer class="site-footer">
-member: Pawar Pratiksha  |  Shete Ruchika  |  Vadnere Dhanashree  |  Pawar Mansi
+Nikam Varuna
 </footer>
 </body>
 </html>
+
