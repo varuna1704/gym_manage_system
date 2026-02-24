@@ -9,7 +9,9 @@ $dbError = '';
 if (!$con) {
     $dbError = 'Database connection failed. Please verify PostgreSQL settings.';
 } else {
-    $query = 'SELECT eq_name, eq_img, eq_info FROM equipment ORDER BY eq_id';
+    $query = "SELECT DISTINCT ON (LOWER(TRIM(eq_name)), COALESCE(eq_info, '')) eq_name, eq_img, eq_info
+              FROM equipment
+              ORDER BY LOWER(TRIM(eq_name)), COALESCE(eq_info, ''), eq_id";
     $res = pg_query($con, $query);
 
     if ($res) {
