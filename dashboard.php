@@ -5,37 +5,52 @@ include 'pg_con.php';
 
 $dbError = '';
 $stats = array(
-    'Admins' => null,
-    'Trainers' => null,
-    'Users' => null,
-    'Equipments' => null,
-    'Diet Plans' => null,
-    'Payments' => null
+    array('label' => 'Admins', 'count' => null, 'href' => 'admin/login.php'),
+    array('label' => 'Trainers', 'count' => null, 'href' => 'trainer_index.php'),
+    array('label' => 'Users', 'count' => null, 'href' => 'user_index.php'),
+    array('label' => 'Equipments', 'count' => null, 'href' => 'equipment.php'),
+    array('label' => 'Diet Plans', 'count' => null, 'href' => 'dietplan.php'),
+    array('label' => 'Payments', 'count' => null, 'href' => 'payment.php')
 );
 $recentUsers = array();
 $recentBills = array();
 
-function count_rows($con, $query) {
-    $result = @pg_query($con, $query);
-    if (!$result) {
-        return null;
+function count_rows_with_fallback($con, $queries) {
+    foreach ($queries as $query) {
+        $result = @pg_query($con, $query);
+        if (!$result) {
+            continue;
+        }
+        $row = pg_fetch_assoc($result);
+        if ($row && isset($row['total'])) {
+            return (int)$row['total'];
+        }
     }
-    $row = pg_fetch_assoc($result);
-    if (!$row || !isset($row['total'])) {
-        return null;
-    }
-    return (int)$row['total'];
+    return null;
 }
 
 if (!$con) {
     $dbError = 'Database connection failed. Please verify PostgreSQL settings.';
 } else {
-    $stats['Admins'] = count_rows($con, 'SELECT COUNT(*) AS total FROM admin');
-    $stats['Trainers'] = count_rows($con, 'SELECT COUNT(*) AS total FROM trainers');
-    $stats['Users'] = count_rows($con, 'SELECT COUNT(*) AS total FROM users');
-    $stats['Equipments'] = count_rows($con, 'SELECT COUNT(*) AS total FROM equipment');
-    $stats['Diet Plans'] = count_rows($con, 'SELECT COUNT(*) AS total FROM dietplan');
-    $stats['Payments'] = count_rows($con, 'SELECT COUNT(*) AS total FROM bills');
+    $stats[0]['count'] = count_rows_with_fallback($con, array(
+        'SELECT COUNT(*) AS total FROM admin'
+    ));
+    $stats[1]['count'] = count_rows_with_fallback($con, array(
+        'SELECT COUNT(*) AS total FROM trainers'
+    ));
+    $stats[2]['count'] = count_rows_with_fallback($con, array(
+        'SELECT COUNT(*) AS total FROM users'
+    ));
+    $stats[3]['count'] = count_rows_with_fallback($con, array(
+        "SELECT COUNT(DISTINCT LOWER(TRIM(eq_name)) || '|' || COALESCE(eq_info, '')) AS total FROM equipment",
+        'SELECT COUNT(*) AS total FROM equipment'
+    ));
+    $stats[4]['count'] = count_rows_with_fallback($con, array(
+        'SELECT COUNT(*) AS total FROM dietplan'
+    ));
+    $stats[5]['count'] = count_rows_with_fallback($con, array(
+        'SELECT COUNT(*) AS total FROM bills'
+    ));
 
     $userResult = @pg_query($con, 'SELECT user_name, user_email, user_city FROM users ORDER BY user_id DESC LIMIT 5');
     if ($userResult) {
@@ -59,14 +74,22 @@ if (!$con) {
     gap: 10px;
 }
 .stat-card {
+    display: block;
+    text-decoration: none;
     border: 1px solid var(--line);
     border-radius: 12px;
     background: #f8fafc;
     padding: 12px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
 }
 .stat-card h3 {
     margin: 0 0 6px;
     font-size: 13px;
+    color: #1f2937;
 }
 .stat-value {
     margin: 0;
@@ -100,11 +123,11 @@ if (!$con) {
 <?php } ?>
 
 <section class="stat-grid" style="margin-top: 10px;">
-    <?php foreach ($stats as $label => $value) { ?>
-    <article class="stat-card">
-        <h3><?php echo htmlspecialchars($label); ?></h3>
-        <p class="stat-value"><?php echo $value === null ? '-' : htmlspecialchars((string)$value); ?></p>
-    </article>
+    <?php foreach ($stats as $item) { ?>
+    <a class="stat-card" href="<?php echo htmlspecialchars($item['href']); ?>">
+        <h3><?php echo htmlspecialchars($item['label']); ?></h3>
+        <p class="stat-value"><?php echo $item['count'] === null ? '-' : htmlspecialchars((string)$item['count']); ?></p>
+    </a>
     <?php } ?>
 </section>
 
