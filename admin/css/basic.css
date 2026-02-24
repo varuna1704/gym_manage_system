@@ -202,19 +202,21 @@ body {
     FOOTER  STYLES    
     =============================================*/
 #footer-sec {
-    background: linear-gradient(135deg, #111111, #1f2937);
-    padding: 14px 18px;
-    color: #ffffff;
+    background: linear-gradient(120deg, #111827 0%, #0f172a 55%, #7f1d1d 100%);
+    border-top: 3px solid #ef4444;
+    padding: 16px 18px;
+    color: #f8fafc;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 800;
     text-align: center;
-    letter-spacing: 0.3px;
-    border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.28);
 }
 
     #footer-sec a {
-        color:#ffffff;
+        color:#f8fafc;
         text-decoration:none;
     }
     #footer-sec a:hover,a:focus {
@@ -243,6 +245,7 @@ body {
         border-radius: 0px;
     }
 }
+
 
 
 

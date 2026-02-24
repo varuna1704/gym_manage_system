@@ -1,13 +1,15 @@
 .footer{
-  margin-top: 40px;
+  margin-top: 44px;
   display: block;
-  background: linear-gradient(135deg, #111111, #1f2937);
-  color: #ffffff;
-  padding: 14px 16px;
-  border-radius: 12px;
+  background: linear-gradient(120deg, #111827 0%, #0f172a 55%, #7f1d1d 100%);
+  border-top: 3px solid #ef4444;
+  color: #f8fafc;
+  padding: 16px 18px;
+  border-radius: 14px;
   text-align: center;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.28);
 }

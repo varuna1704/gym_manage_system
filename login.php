@@ -117,13 +117,17 @@ body {
     width: 100%;
     max-width: 1120px;
     margin: 0 auto 18px;
-    border-radius: 12px;
-    background: #0e0e0f;
-    color: #ffffff;
+    background: linear-gradient(120deg, #111827 0%, #0f172a 55%, #7f1d1d 100%);
+    border-top: 3px solid #ef4444;
+    color: #f8fafc;
     text-align: center;
-    padding: 14px 16px;
-    font-size: 24px;
-    font-weight: 500;
+    padding: 16px 18px;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-radius: 14px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.28);
 }
 .auth-card {
     width: min(980px, 100%);
@@ -369,6 +373,7 @@ h1 {
     }
     .site-footer {
         font-size: 16px;
+        padding: 14px 12px;
     }
     .auth-card {
         grid-template-columns: 1fr;
@@ -455,4 +460,5 @@ Nikam Varuna
 </footer>
 </body>
 </html>
+
 
