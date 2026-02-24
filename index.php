@@ -6,7 +6,7 @@ include 'user_header.php';
     <section class="info-block">
         <h2 class="surface-title">Build A Stronger Routine</h2>
         <p class="surface-note">Track training, nutrition, and member operations in one clean workflow.</p>
-        <a class="primary-btn" href="login.php">Open Dashboard</a>
+        <a class="primary-btn" href="dashboard.php">Open Dashboard</a>
     </section>
     <aside class="stats-block">
         <h3>Quick Access</h3>

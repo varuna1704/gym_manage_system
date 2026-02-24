@@ -19,6 +19,7 @@ $page_title = isset($page_title) ? $page_title : 'Gym Management System';
         <nav class="site-nav">
             <ul>
                 <li><a href="index.php">HOME</a></li>
+                <li><a href="dashboard.php">DASHBOARD</a></li>
                 <li><a href="aboutus.php">ABOUT US</a></li>
                 <li><a href="services.php">SERVICES</a></li>
                 <li><a href="login.php">LOGIN</a></li>
