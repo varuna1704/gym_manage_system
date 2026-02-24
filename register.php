@@ -96,6 +96,9 @@ if (!$con) {
     --line: #e5e7eb;
     --accentA: #ef4444;
     --accentB: #991b1b;
+    --shell-width: min(1140px, calc(100% - 16px));
+    --header-offset: 132px;
+    --footer-offset: 64px;
 }
 * { box-sizing: border-box; }
 html, body {
@@ -106,10 +109,14 @@ html, body {
     color: var(--text);
 }
 body { background: radial-gradient(circle at 20% 20%, var(--bgA), var(--bgB)); }
-.page { height: 100vh; display: grid; grid-template-rows: auto 1fr auto; }
-.site-header,.site-footer,.page-main { width: min(1140px, 100%); margin: 0 auto; }
+.page { height: 100vh; position: relative; }
+.site-header,.site-footer,.page-main { width: var(--shell-width); margin: 0; }
 .site-header {
-    margin-top: 8px;
+    position: fixed;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 40;
     border-radius: 14px;
     overflow: hidden;
     background: #9ab0d3;
@@ -144,6 +151,11 @@ body { background: radial-gradient(circle at 20% 20%, var(--bgA), var(--bgB)); }
     font-size: 12px;
 }
 .page-main {
+    position: fixed;
+    top: var(--header-offset);
+    bottom: var(--footer-offset);
+    left: 50%;
+    transform: translateX(-50%);
     min-height: 0;
     display: flex;
     align-items: center;
@@ -322,7 +334,12 @@ body { background: radial-gradient(circle at 20% 20%, var(--bgA), var(--bgB)); }
 .auth-right h2 { margin: 0 0 8px; font-size: clamp(24px, 2.1vw, 34px); }
 .auth-right p { margin: 0; font-size: 13px; line-height: 1.6; max-width: 320px; }
 .site-footer {
-    margin: 0 auto 8px;
+    position: fixed;
+    left: 50%;
+    bottom: 8px;
+    transform: translateX(-50%);
+    z-index: 40;
+    margin: 0;
     background: linear-gradient(120deg, #111827 0%, #0f172a 55%, #7f1d1d 100%);
     border-top: 3px solid #ef4444;
     color: #f8fafc;
@@ -344,10 +361,14 @@ body { background: radial-gradient(circle at 20% 20%, var(--bgA), var(--bgB)); }
     .site-title { font-size: clamp(18px, 2vw, 30px); }
 }
 @media (max-height: 700px) {
-    .site-header { margin-top: 4px; }
+    :root {
+        --header-offset: 118px;
+        --footer-offset: 56px;
+    }
+    .site-header { top: 4px; }
     .site-title { padding: 8px; }
     .site-nav { padding: 6px 10px; margin: 0 8px 8px; }
-    .site-footer { margin-bottom: 4px; padding: 8px 10px; }
+    .site-footer { bottom: 4px; padding: 8px 10px; }
 }
 </style>
 </head>
