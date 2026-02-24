@@ -1,72 +1,13 @@
-<?php 
-   include "user_head.php";
-   ?>
 <?php
-include_once "pg_con.php";
+$page_title = 'Trainer Home | Gym Management System';
+include 'user_head.php';
 ?>
-
-
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="style.css"/>
-</head><style>
-    body{
-        background:whitesmoke;
-    }
-    .btn1 button{
-        width:600px;
-        height:80px;
-        background:red;
-        color:white;
-        font-size: 40px;
-      
-        
-    }
-    table{
-        padding: 50px;
-        background: white;
-        margin:-30px 50px;
-    }
-    /*.btn2 button{
-        width:600px;
-        height: 80px;
-        background: green;
-        color:white;
-        font-size: 40px;
-    }*/
-    .btn3 button{
-        width:600px;
-        height: 80px;
-        background: blue;
-        color:white;
-        font-size: 40px;
-    }
-    td{
-        padding:50px 100px;
-    }
-    table{
-        margin-top: 160px;
-    }
-</style>
-
-<body>
-    
-    <table><tr>
-            <td>
-    <div class="btn1">
-        <a href="batch.php"><button value="user">Batch</button></a></div></td>
-    
-        <!--<td>  <div class="btn2">
-                <a href="user.php"><button value="user">Attendance</button></a></div></td>-->
-    
-                <td>  <div class="btn3">
-                        <a href="equipment.php"><button value="user">Equipments</button></a></div></td>
-        </tr><!-- comment -->
-    </table>
-</body>
-</html>
-
-<?php 
-   include "user_foot.php";
-   ?>
+<section class="info-block">
+    <h2 class="surface-title">Trainer Dashboard</h2>
+    <p class="surface-note">Manage batches and equipment from one screen.</p>
+</section>
+<div class="action-grid" style="margin-top: 12px;">
+    <a class="primary-btn" href="batch.php">Open Member Batches</a>
+    <a class="secondary-btn" href="equipment.php">Open Equipments</a>
+</div>
+<?php include 'user_foot.php'; ?>

@@ -1,57 +1,72 @@
-<?php include "user_head.php";
-?>
-<!DOCTYPE html>
-<html>
-<head>
-<!-- <link rel="stylesheet" href="style.css"/> -->
-</head>
-<style>
-
-table{
-	border:2px solid white;
-	margin-top:0px;
-        margin-left:240px;
-	
-}
-th{
-   text-align:center;
-   border:2px solid white;
-    width:450px;
-    height:120px;
-    font-size: 30px;
-   
-  
-}
-
-td{
-    font-weight: bold;
-	border:2px solid white;
-	text-align:center;
-    width:450px;
-    height:120px;
-    font-size: 20px;
-}
-</style>
-<body>
 <?php
-include "pg_con.php";
-$query="SELECT * FROM equipment ";
-$res=pg_query($con,$query) or die (pg_last_error($con));
-echo"<table border=2><tr><th colspan=4>Equipments Info.</th></tr><"
-. "tr><td>Eq name</td><td>equipment information</td><td>equipment image</td></tr>";
-while($row=pg_fetch_array($res))
-{     
-  /* echo"<tr><td>".$row[0]."</td>";*/
-    echo"<td>".$row[1]."</td>";
-    echo"<td>".$row[3]."</td>";  
-    $row[2]=pg_fetch_result($res,'eq_img');
-    $unes_image= pg_unescape_bytea($row[2]);
-    echo "<td>"."<img src=$unes_image width=300 height=300/>"."</td></tr>";
-   }
-echo "</table>";
-pg_close($con);
+$page_title = 'Equipments | Gym Management System';
+include 'user_head.php';
+include 'pg_con.php';
+
+$rows = array();
+$dbError = '';
+
+if (!$con) {
+    $dbError = 'Database connection failed. Please verify PostgreSQL settings.';
+} else {
+    $query = 'SELECT eq_name, eq_img, eq_info FROM equipment ORDER BY eq_id';
+    $res = pg_query($con, $query);
+
+    if ($res) {
+        while ($row = pg_fetch_assoc($res)) {
+            $imageName = '';
+            if (!empty($row['eq_img'])) {
+                $imageName = trim(pg_unescape_bytea($row['eq_img']));
+            }
+
+            $rows[] = array(
+                'eq_name' => $row['eq_name'],
+                'eq_info' => $row['eq_info'],
+                'eq_img' => $imageName
+            );
+        }
+    } else {
+        $dbError = 'Unable to load equipment records.';
+    }
+}
 ?>
-</body>
-</html>
-<?php include"user_footer.php";
-?>
+<section class="info-block">
+    <h2 class="surface-title">Equipment Directory</h2>
+    <p class="surface-note">Reference list of available gym equipment.</p>
+</section>
+<?php if ($dbError !== '') { ?>
+<div class="form-msg error"><?php echo htmlspecialchars($dbError); ?></div>
+<?php } ?>
+<section class="data-block" style="margin-top: 10px;">
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 20%;">Equipment</th>
+                    <th style="width: 58%;">Information</th>
+                    <th style="width: 22%;">Image</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if (count($rows) === 0) { ?>
+                <tr><td colspan="3">No equipment records found.</td></tr>
+            <?php } else { ?>
+                <?php foreach ($rows as $row) { ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($row['eq_name']); ?></td>
+                    <td><?php echo nl2br(htmlspecialchars($row['eq_info'])); ?></td>
+                    <td>
+                        <?php if ($row['eq_img'] !== '' && file_exists($row['eq_img'])) { ?>
+                        <img class="table-image" src="<?php echo htmlspecialchars($row['eq_img']); ?>" alt="Equipment image">
+                        <?php } else { ?>
+                        <span>Image not found</span>
+                        <?php } ?>
+                    </td>
+                </tr>
+                <?php } ?>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</section>
+<?php include 'user_footer.php'; ?>

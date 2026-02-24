@@ -1,28 +1,31 @@
 <?php
+$page_title = isset($page_title) ? $page_title : 'Member Portal | Gym Management System';
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>  </title>
-<link type="text/css" rel="stylesheet" href="style1.css"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><?php echo htmlspecialchars($page_title); ?></title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app_shell.css">
 </head>
 <body>
-<div class="header">
-<h1> GYM MANAGEMENT SYSTEM</h1>
-<div class="navbar">
-<ul>
-    <li><a href="user_index.php">HOME</a></li>
-	<li><a href="#">ABOUT US</a></li>
-	<li><a href="#">SERVICES</a></li>
-  
-	 <li><a href="logout.php">LOG OUT</a></li>
-
-<div class=search >
-   <input type="text" name="search" id="search" placeholder="search Infromation"/></div>
-   </ul>
-   
-</div>
-</div>
-</body></html>
+<div class="page">
+    <header class="site-header">
+        <h1 class="site-title">GYM MANAGEMENT SYSTEM</h1>
+        <nav class="site-nav">
+            <ul>
+                <li><a href="user_index.php">MEMBER HOME</a></li>
+                <li><a href="dietplan.php">DIET PLAN</a></li>
+                <li><a href="payment.php">PAYMENT</a></li>
+                <li><a href="logout.php">LOG OUT</a></li>
+            </ul>
+            <input class="search" type="text" placeholder="Search Information">
+        </nav>
+    </header>
+    <main class="page-main">
+        <div class="fit-wrap">
+            <div class="content-surface">

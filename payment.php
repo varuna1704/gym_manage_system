@@ -1,201 +1,107 @@
-<?php include "user_head1.php";
-?>
-<html>
-    <head>
-        <style>
-.form table{
-border:2px solid black;
-margin:0px 650px;
-width:500px;
-height:450px;
-border-radius:10px;
-background:#6495ed;
-box-shadow: 10px 10px 20px 0px;
-}
-.form{
-	height:500px;
-	}
-.form td{
-font-size:20px;
-width:450px;
-
-}
-.form input[type='textarea']
-{
-	border:2px solid blue;
-	margin-left:30px;
-	width:300px;
-	height:50px;
-}
-	
-.form input[type='text']
-{
-	border:2px solid blue;
-	margin-left:30px;
-	width:300px;
-	height:30px;
-}
-
-.form input[type='submit']
-{
-	font-size:20px;
-	border-radius:30px;
-	padding:10px 100px;
-	margin-top:10px;
-    background:#02386e;
-    color:white;
-}
-.form input[type='submit']:hover
-{
-	border:2px solid white;
-}
-.form input[type='email'],.form input[type='number']
-{
-	border:2px solid blue;
-	margin-left:30px;
-	width:300px;
-	height:30px;
-}
-#user_gender{
-    color:gray;
-    background:white;
-	border:2px solid blue;
-	margin-left:30px;
-	width:305px;
-	height:30px;
-}
-.formlog {
-          margin-top:250px;
-          font-size: 20px;
-          text-align:center;
-          }
-        </style>
-    </head>
-    <body>
 <?php
-require('pg_con.php');
+$page_title = 'Payment | Gym Management System';
+include 'user_head1.php';
+require 'pg_con.php';
 
-$user_name=stripslashes($_REQUEST['user_name']);
-	$user_name=pg_escape_string($con,$user_name);
-        $user_fname=stripslashes($_REQUEST['fname']);
-        $user_fname=pg_escape_string($con,$user_fname);
-        $user_lname=stripslashes($_REQUEST['lname']);
-        $user_lname=pg_escape_string($con,$user_lname);
-        $user_city=stripslashes($_REQUEST['city']);
-        $user_city=pg_escape_string($con,$user_city);
-        
-        
-	$user_email=stripslashes($_REQUEST['user_email']);
-	$user_email=pg_escape_string($con,$user_email);
-	$user_age=stripslashes($_REQUEST['user_age']);
-	$user_age=pg_escape_string($con,$user_age);
-	$user_gender=stripslashes($_REQUEST['user_gender']);
-	$user_gender=pg_escape_string($con,$user_gender);
-	
-	$contact_no=stripslashes($_REQUEST['contact_no']);
-	$contact_no=pg_escape_string($con,$contact_no);
-	$user_add=stripslashes($_REQUEST['user_add']);
-	$user_add=pg_escape_string($con,$user_add);
-        $joindate=stripslashes($_REQUEST['joindate']);
-	$joindate=pg_escape_string($con,$joindate);
-        $expirydate=stripslashes($_REQUEST['expirydate']);
-	$expirydate=pg_escape_string($con,$expirydate);
-        $fees=stripslashes($_REQUEST['fees']);
-	$fees=pg_escape_string($con,$fees);
-        
-	
-            $query="INSERT into bills(user_name,user_email,user_age,user_gender,contact_no,user_add,user_fname,user_lname,user_city,joindate,expirydate,fees) VALUES ('$user_name','$user_email','$user_age','$user_gender','$contact_no','$user_add','$user_fname','$user_lname','$user_city','$joindate','$expirydate','$fees')";
-	$result=pg_query($con,$query);
-	if($result)
-	{
-		echo"<div class='formlog'><h3>
-                    Payment Sucessfully Done!
-                    <br>Thankyou!</h3>
-		<br>click here to <a href='payment.php'>BACK</a></div>";
-	}
-        
-        else{
-       ?>     
-        
-<div class="form">
-	<form name="payment" action="" method="POST">
-	<table>
-	<tr><td colspan="2" align="center" ><h1>Billing Details</h1></td></tr>
-	<tr>
-	<td>&nbsp User Name </td>
-	<td><input type="text" name="user_name" placeholder="username" required/></td>
-	<tr>
-	<td>&nbsp first Name </td>
-	<td><input type="text" name="fname" placeholder="first name" required/></td></tr>
-	<tr>
-	<td>&nbsp Last Name </td>
-	<td><input type="text" name="lname" placeholder="Last name" required/></td></tr>
-	
-	<tr>
-	<td>&nbsp Email </td>
-	<td><input type="email" name="user_email" placeholder="email" required/></td>
-	<tr>
-	<td	>&nbsp Age</td>
-	<td><input type="number" name="user_age" placeholder="age" required/></td></tr>
-	<tr>
-	<td>&nbsp Gender</td>
-	<td><select name="user_gender" id="user_gender"> 
-	                        <option value="female">Female</option>
-				<option value="male">Male</option></select></td></tr>
-	<!--<tr>
-	<td>&nbsp Password </td>
-	<td><input type="password" name="user_pass" placeholder="password" required/></td>
-	</tr>
-        <tr>
-	<td>&nbsp confirm Password </td>
-	<td><input type="text" name="conf_pass" placeholder="confirm password" required/></td>
-	</tr>-->
-	<tr><td>&nbsp contact no</td>
-	<td><input type="text" name="contact_no" placeholder="contact no" required/></td></tr>
-	<tr><td>&nbsp Address</td>
-	<td><input type="textarea" name="user_add" placeholder="Address" required/></td></tr>
-	<tr>
-	<td>&nbsp City </td>
-	<td><input type="text" name="city" placeholder="City" required/></td></tr>
+$form = array(
+    'user_name' => isset($_POST['user_name']) ? trim($_POST['user_name']) : '',
+    'fname' => isset($_POST['fname']) ? trim($_POST['fname']) : '',
+    'lname' => isset($_POST['lname']) ? trim($_POST['lname']) : '',
+    'user_email' => isset($_POST['user_email']) ? trim($_POST['user_email']) : '',
+    'user_age' => isset($_POST['user_age']) ? trim($_POST['user_age']) : '',
+    'user_gender' => isset($_POST['user_gender']) ? trim($_POST['user_gender']) : 'female',
+    'contact_no' => isset($_POST['contact_no']) ? trim($_POST['contact_no']) : '',
+    'user_add' => isset($_POST['user_add']) ? trim($_POST['user_add']) : '',
+    'city' => isset($_POST['city']) ? trim($_POST['city']) : '',
+    'joindate' => isset($_POST['joindate']) ? trim($_POST['joindate']) : '',
+    'expirydate' => isset($_POST['expirydate']) ? trim($_POST['expirydate']) : '',
+    'fees' => isset($_POST['fees']) ? trim($_POST['fees']) : ''
+);
 
-	
-	<!--<tr><td>&nbsp State</td>
-	<td><select name="state" id="state">
-	                           <option value="#">select state</option>
-	                           <option value="andhra_pradhesh">Andhra Pradhesh</option>
-	                           <option value="maharashtra">Maharashtra</option>
-					                <option value="gujrat">Gujrat</option>
-									<option value="rajasthan">Rajasthan</option>
-									<option value="haryana">Haryana</option>
-									</select>
-									</td></tr>-->
-	<!--<tr><td>&nbsp type</td>
-	<td><select name="user_type" id="user_type">
-	                                <option value="admin">Admin</option>
-	                                <option value="trainer">Trainer</option>
-					                <option value="user">User</option></select>
-									</td></tr>-->
-        
-        <tr><td>&nbsp Joining Date</td>
-            <td><input type="text" name="joindate" placeholder=" Joining Date" required/></td></tr>
-        
-                
-        <tr><td>&nbsp Expiry Date</td>
-            <td><input type="text" name="expirydate" placeholder=" Expiry Date" required/></td></tr>
-        
-        <tr><td>&nbsp Fees.</td>
-            <td><input type="text" name="fees" placeholder=" Fees" required/></td></tr>
-        
-	<tr>
-	<td colspan="2" align="center" >
-	<input type="submit" name="submit" value="pay" />
-	</td></tr>
-	<tr><td>&nbsp </td></tr>
-	</table>
-	</form>
-	</div>
-        <?php } ?>
-</body>
-</html>
-<?php include "user_foot.php";
+$error = '';
+$success = '';
+$dbError = '';
+
+if (!$con) {
+    $dbError = 'Database connection failed. Please verify PostgreSQL settings.';
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $required = array(
+        $form['user_name'], $form['fname'], $form['lname'], $form['user_email'],
+        $form['user_age'], $form['user_gender'], $form['contact_no'], $form['user_add'],
+        $form['city'], $form['joindate'], $form['expirydate'], $form['fees']
+    );
+
+    $hasEmpty = false;
+    foreach ($required as $value) {
+        if ($value === '') {
+            $hasEmpty = true;
+            break;
+        }
+    }
+
+    if ($hasEmpty) {
+        $error = 'Please fill all required fields.';
+    } else {
+        $userName = pg_escape_string($con, $form['user_name']);
+        $firstName = pg_escape_string($con, $form['fname']);
+        $lastName = pg_escape_string($con, $form['lname']);
+        $userEmail = pg_escape_string($con, $form['user_email']);
+        $userAge = pg_escape_string($con, $form['user_age']);
+        $userGender = pg_escape_string($con, $form['user_gender']);
+        $contactNo = pg_escape_string($con, $form['contact_no']);
+        $userAdd = pg_escape_string($con, $form['user_add']);
+        $userCity = pg_escape_string($con, $form['city']);
+        $joinDate = pg_escape_string($con, $form['joindate']);
+        $expiryDate = pg_escape_string($con, $form['expirydate']);
+        $fees = pg_escape_string($con, $form['fees']);
+
+        $query = "INSERT INTO bills(user_name,user_email,user_age,user_gender,contact_no,user_add,user_fname,user_lname,user_city,joindate,expirydate,fees) VALUES ('$userName','$userEmail','$userAge','$userGender','$contactNo','$userAdd','$firstName','$lastName','$userCity','$joinDate','$expiryDate','$fees')";
+        $result = pg_query($con, $query);
+
+        if ($result) {
+            $success = 'Payment successfully recorded.';
+            $form = array(
+                'user_name' => '', 'fname' => '', 'lname' => '', 'user_email' => '',
+                'user_age' => '', 'user_gender' => 'female', 'contact_no' => '',
+                'user_add' => '', 'city' => '', 'joindate' => '', 'expirydate' => '', 'fees' => ''
+            );
+        } else {
+            $error = 'Payment could not be saved. Please try again.';
+        }
+    }
+}
 ?>
+<section class="info-block">
+    <h2 class="surface-title">Billing Details</h2>
+    <p class="surface-note">Submit membership payment details in one form.</p>
+</section>
+<?php if ($dbError !== '') { ?><div class="form-msg error"><?php echo htmlspecialchars($dbError); ?></div><?php } ?>
+<?php if ($error !== '') { ?><div class="form-msg error"><?php echo htmlspecialchars($error); ?></div><?php } ?>
+<?php if ($success !== '') { ?><div class="form-msg success"><?php echo htmlspecialchars($success); ?></div><?php } ?>
+<form method="POST" action="" autocomplete="off" style="margin-top: 8px;">
+    <div class="form-grid">
+        <div class="field"><label>Username</label><input type="text" name="user_name" value="<?php echo htmlspecialchars($form['user_name']); ?>" required></div>
+        <div class="field"><label>First Name</label><input type="text" name="fname" value="<?php echo htmlspecialchars($form['fname']); ?>" required></div>
+        <div class="field"><label>Last Name</label><input type="text" name="lname" value="<?php echo htmlspecialchars($form['lname']); ?>" required></div>
+        <div class="field"><label>Email</label><input type="email" name="user_email" value="<?php echo htmlspecialchars($form['user_email']); ?>" required></div>
+        <div class="field"><label>Age</label><input type="number" min="1" name="user_age" value="<?php echo htmlspecialchars($form['user_age']); ?>" required></div>
+        <div class="field">
+            <label>Gender</label>
+            <select name="user_gender" required>
+                <option value="female" <?php echo $form['user_gender'] === 'female' ? 'selected' : ''; ?>>Female</option>
+                <option value="male" <?php echo $form['user_gender'] === 'male' ? 'selected' : ''; ?>>Male</option>
+            </select>
+        </div>
+        <div class="field"><label>Contact Number</label><input type="text" name="contact_no" value="<?php echo htmlspecialchars($form['contact_no']); ?>" required></div>
+        <div class="field"><label>City</label><input type="text" name="city" value="<?php echo htmlspecialchars($form['city']); ?>" required></div>
+        <div class="field full"><label>Address</label><textarea name="user_add" required><?php echo htmlspecialchars($form['user_add']); ?></textarea></div>
+        <div class="field"><label>Joining Date</label><input type="date" name="joindate" value="<?php echo htmlspecialchars($form['joindate']); ?>" required></div>
+        <div class="field"><label>Expiry Date</label><input type="date" name="expirydate" value="<?php echo htmlspecialchars($form['expirydate']); ?>" required></div>
+        <div class="field"><label>Fees</label><input type="text" name="fees" value="<?php echo htmlspecialchars($form['fees']); ?>" required></div>
+    </div>
+    <div class="form-actions">
+        <button type="submit" class="primary-btn">Submit Payment</button>
+        <a href="user_index.php" class="secondary-btn">Back</a>
+    </div>
+</form>
+<?php include 'user_foot.php'; ?>
